@@ -1,5 +1,7 @@
 # Mac 安装教程
 
+> **使用许可：仅限非商业用途。任何商业使用必须事先取得项目作者 的书面授权。** 详见 [LICENSE](../LICENSE)。本项目为源码可见项目，不属于 OSI 定义的开源软件；第三方组件仍遵循各自许可。
+
 [English](INSTALL.en.md) · [首页](../README.md) · [使用教程](USAGE.zh-CN.md)
 
 本安装器面向运行 macOS 14 及以上版本的 Apple Silicon Mac、**一台已解锁并运行兼容客户端的 LX06**。音箱解锁、刷机和 SSH 准备请参考 [OpenXiaoAI](https://github.com/idootop/open-xiaoai) 与[视频教程](https://youtu.be/JKyJdnR1uRc?si=XTlR9v1xlLO4Cw_f)；安装器不会刷机。Intel Mac、其他音箱及不同 fork 客户端未纳入这条安装路线。新 Mac 从零安装尚未独立完成端到端实机验收，自动检查不能代替听到真实回答。

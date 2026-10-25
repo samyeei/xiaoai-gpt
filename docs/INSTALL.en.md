@@ -1,5 +1,7 @@
 # Mac installation
 
+> **Noncommercial use only. Any commercial use requires prior written authorization from the project author.** See [LICENSE](../LICENSE). This is a source-available project, not OSI-defined open source; third-party components retain their own licenses.
+
 [中文](INSTALL.zh-CN.md) · [Home](../README.en.md) · [Usage](USAGE.en.md)
 
 The installer supports an Apple Silicon Mac running macOS 14 or later with **one already-unlocked LX06 running a compatible client**. For unlocking, flashing, and SSH preparation, follow [OpenXiaoAI](https://github.com/idootop/open-xiaoai) and [the video guide](https://youtu.be/JKyJdnR1uRc?si=XTlR9v1xlLO4Cw_f); this installer never flashes firmware. Intel Macs, other speakers, and other fork clients are outside this installation route. A clean Mac installation has not yet passed independent end-to-end real-device acceptance. Automated health cannot prove that a person heard a correct answer.

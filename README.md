@@ -1,5 +1,7 @@
 # xiaoai-gpt
 
+> **使用许可：仅限非商业用途。任何商业使用必须事先取得项目作者 的书面授权。** 详见 [LICENSE](LICENSE)。本项目为源码可见项目，不属于 OSI 定义的开源软件；第三方组件仍遵循各自许可。
+
 [English](README.en.md) · **中文**
 
 让小爱音箱 Pro（LX06）通过 Mac 使用 Codex：支持单次问答、连续语音、可配置唤醒词和退出口令。
@@ -61,4 +63,6 @@
 
 ## 致谢与许可
 
-感谢 [OpenXiaoAI](https://github.com/idootop/open-xiaoai)、[sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx)、[Codex](https://github.com/openai/codex)、[aiortc](https://github.com/aiortc/aiortc) 和 ws。本项目新增代码采用 [MIT](LICENSE)；第三方组件保留原许可，见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。这是社区项目，与小米、OpenAI 无官方隶属关系。
+感谢 [OpenXiaoAI](https://github.com/idootop/open-xiaoai)、[sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx)、[Codex](https://github.com/openai/codex)、[aiortc](https://github.com/aiortc/aiortc) 和 ws。本项目原创内容采用[非商业用途许可](LICENSE)，商用须经作者事先书面授权；第三方组件保留原许可，见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。这是社区项目，与小米、OpenAI 无官方隶属关系。
+
+许可变更之前发布的 MIT 版本保留其原许可；本次变更不追溯撤销已授予的权利。商业授权请通过 [GitHub Issues](https://github.com/samyeei/xiaoai-gpt/issues) 联系作者，申请本身不代表获准。

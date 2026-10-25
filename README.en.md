@@ -1,5 +1,7 @@
 # xiaoai-gpt
 
+> **Noncommercial use only. Any commercial use requires prior written authorization from the project author.** See [LICENSE](LICENSE). This is a source-available project, not OSI-defined open source; third-party components retain their own licenses.
+
 **English** · [中文](README.md)
 
 Use a XiaoAI Pro (LX06) speaker with Codex through a Mac: single questions, continuous voice, configurable wake words, and configurable exit commands.
@@ -46,4 +48,6 @@ No credentials, model weights, private backups, raw screenshots or conversation 
 
 ## Credits and license
 
-Thanks to [OpenXiaoAI](https://github.com/idootop/open-xiaoai), [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx), [Codex](https://github.com/openai/codex), [aiortc](https://github.com/aiortc/aiortc) and ws. New project code is [MIT](LICENSE); third-party components retain their own licenses: [notices](THIRD_PARTY_NOTICES.md). This is an independent community project, unaffiliated with Xiaomi or OpenAI.
+Thanks to [OpenXiaoAI](https://github.com/idootop/open-xiaoai), [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx), [Codex](https://github.com/openai/codex), [aiortc](https://github.com/aiortc/aiortc) and ws. Original project material uses the [Noncommercial License](LICENSE); commercial use requires the author’s prior written authorization; third-party components retain their own licenses: [notices](THIRD_PARTY_NOTICES.md). This is an independent community project, unaffiliated with Xiaomi or OpenAI.
+
+Earlier MIT releases retain their original terms; this change does not retroactively revoke previously granted rights. Request commercial permission through [GitHub Issues](https://github.com/samyeei/xiaoai-gpt/issues); a request is not authorization.

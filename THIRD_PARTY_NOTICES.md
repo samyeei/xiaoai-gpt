@@ -1,6 +1,6 @@
 # Third-party notices
 
-The root MIT license applies to original xiaoai-gpt code, not a replacement for third-party licenses.
+The root Noncommercial License applies only to original xiaoai-gpt material that its rightsholders can license. Commercial use requires prior written authorization from the project author. It does not replace or restrict third-party licenses. Earlier MIT releases retain their accompanying terms.
 
 - `deploy/bridge/vendor/ws`: ws, MIT; original LICENSE retained.
 - `mac/muse-service/vendor`: Muse Gadget SDK material, Apache-2.0; original LICENSE and any bundled provenance retained. This is historical optional integration code, not proof of Mac pairing support.

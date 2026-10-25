@@ -1,5 +1,7 @@
 # Agent installation contract
 
+- Read LICENSE before installation or redistribution. Noncommercial use only; commercial use requires the project author's prior written authorization. Do not imply this project is MIT-licensed or OSI open source. Preserve third-party licenses and earlier releases' rights.
+
 Read README.md or README.en.md and the matching docs/INSTALL guide first. Inspect the Mac, existing services, ports, speaker route and rollback materials **before** running `./install.sh`; never execute it blindly. The supported installer route is one already-unlocked LX06 on an Apple Silicon Mac running macOS 14 or later. Run `./install.sh doctor` first; it inspects without installing. Use `./install.sh install` only after the prerequisites and target are understood. Do not run every historical `tools/` script.
 
 - Firmware unlocking and flashing belong to upstream OpenXiaoAI and its video guide. Never flash automatically. Do not assume another speaker or fork client is compatible.

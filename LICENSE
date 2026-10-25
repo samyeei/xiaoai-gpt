@@ -1,21 +1,63 @@
-MIT License
+xiaoai-gpt 非商业用途许可 / Noncommercial License 1.0
 
-Copyright (c) 2026 xiaoai-gpt contributors
+Copyright (c) 2026 xiaoai-gpt author and respective contributors.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+中文条款
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. 范围：本许可适用于本版本中作者有权授权的 xiaoai-gpt 原创代码、
+   文档及项目素材。第三方代码、依赖、模型、商标及素材不受本许可重新授权，
+   仍须遵守各自的许可与权利声明。
+2. 非商业许可：允许仅为个人学习、研究、家庭使用等非商业目的使用、复制、
+   修改和免费分发本软件及其修改版。分发时必须保留本许可、版权声明和来源，
+   清楚标注修改，并对本软件及其修改部分保留相同的非商业限制。
+3. 商业使用：未经项目作者 事先书面授权，禁止任何商业使用，
+   包括但不限于出售软件或预装设备、收费安装或维护、提供收费或广告变现的
+   托管服务、集成到商业产品，以及企业或组织为商业运营目的进行内部部署。
+   不直接收费不代表非商业；旨在获取商业利益或报酬的使用均需授权。
+4. 授权申请：通过 https://github.com/samyeei/xiaoai-gpt/issues 联系作者，
+   说明用途并申请商业许可；不要在公开 Issue 中提交秘密或私人联系方式。
+   提交申请、未收到回复或获得他人同意均不构成作者授权。
+   作者仅可授权其拥有或有权再许可的内容，其他权利人的授权须另行取得。
+5. 保留权利：除本许可明确授予的权利外，其余权利保留；不得将本软件或
+   修改版改用允许未经授权商业使用的条款分发。本许可不授予商标使用权。
+6. 历史版本：本许可随本次许可变更提交起发布，不声称追溯撤销此前已依据
+   MIT 或其他许可授予的权利。历史版本以其随附许可为准。
+7. 免责声明：本软件按“原样”提供，不提供明示或默示担保。在适用法律允许的
+   最大范围内，作者及版权人不对使用本软件所造成的损害承担责任。
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+English terms
+
+1. Scope. This license covers the original xiaoai-gpt code, documentation and
+   project assets in this version only to the extent the author has authority
+   to license them. Third-party code, dependencies, models, trademarks and
+   assets retain their own licenses and rights notices.
+2. Noncommercial grant. You may use, copy, modify and redistribute the Software
+   and modifications free of charge solely for noncommercial purposes, such
+   as personal study, research and household use. Redistributions must retain
+   this license, copyright and source attribution, clearly identify changes,
+   and preserve these noncommercial restrictions on the Software and changes.
+3. Commercial use. Any commercial use requires prior written authorization
+   from the project author. This includes selling software or devices
+   with it preinstalled, paid installation or maintenance, paid or ad-supported
+   hosted services, integration into commercial products, and internal use by
+   businesses or organizations for commercial operations. An absence of direct
+   fees does not make a use noncommercial; use intended for commercial benefit
+   or compensation requires authorization.
+4. Permission requests. Contact the author through
+   https://github.com/samyeei/xiaoai-gpt/issues with the intended use. Do not
+   post secrets or private contact details in public issues. A request, silence
+   or a third party's approval does not constitute the author's authorization.
+   The author can grant rights only for material they own or can sublicense;
+   obtain any required permissions from other rightsholders separately.
+5. Reserved rights. All rights not expressly granted are reserved. You may not
+   redistribute the Software or modifications under terms permitting commercial
+   use without authorization. No trademark rights are granted.
+6. Earlier releases. This license is published starting with the license-change
+   commit. It does not purport to revoke rights previously granted under MIT or
+   another license. Earlier releases remain subject to their accompanying terms.
+7. Disclaimer. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT EXPRESS OR IMPLIED
+   WARRANTIES. TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE AUTHORS AND COPYRIGHT
+   HOLDERS SHALL NOT BE LIABLE FOR DAMAGES ARISING FROM USE OF THE SOFTWARE.
+
+本许可中英文表述不一致时，以中文为准。
+If the two language versions differ, the Chinese text controls.
