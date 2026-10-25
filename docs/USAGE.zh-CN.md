@@ -2,7 +2,7 @@
 
 [English](USAGE.en.md) · [回首页](../README.md)
 
-先完成[安装和实机验收](INSTALL.zh-CN.md)。Mac 要保持登录、联网且不睡眠，音箱需连接到 Mac 桥接服务。桌面启动快捷方式只恢复停止的作业，不等于重新加载配置。
+先完成[安装和实机验收](INSTALL.zh-CN.md)。Mac 要保持登录、联网且不睡眠，音箱需连接到 Mac 桥接服务。桌面启动快捷方式只恢复停止的作业，不等于重新加载配置；安装后的脱敏状态可用 `./install.sh status` 查看。
 
 ## 对话
 
@@ -69,9 +69,9 @@ node --input-type=module -e "import {loadVoiceCommands} from './deploy/bridge/vo
 
 ## 重启与维护
 
-先退出所有通话。改控制口令要重启 unified 和 realtime；改唤醒词要重启 unified（含识别子进程）；改模型/人声重启 unified 和 realtime。安装时让 Agent 记录真实 LaunchAgent 标签；源码的 `com.LOCAL_USER.*` 只是模板。使用自己的 `id -u`，不要复制别人的用户编号。
+先退出所有通话，再在仓库根目录用 `./install.sh stop` 和 `./install.sh start` 让改动生效；活动通话时 `stop` 会拒绝。改口令、唤醒词、模型或人声后，运行 `./install.sh verify` 检查自动状态，并重新做受影响的真实语音测试。`verify` 不能证明你已听到正确回答。安装器保存并使用本机真实 LaunchAgent 标签；源码中的 `com.LOCAL_USER.*` 只是历史模板。
 
-停止、重载和卸载只能操作本项目实际安装的作业，不要批量杀 node/python 或删除所有 SSH key。先停止连接，再恢复安装前备份的音箱客户端服务地址；只删除本项目新增的受限播放公钥条目，保留原有 key 和 known_hosts。
+卸载用 `./install.sh uninstall`，活动通话时也会拒绝。它只恢复仍保持原样的项目拥有资源，保留私密状态、依赖和备份。不要批量杀 node/python 或删除所有 SSH key；音箱路由、authorized_keys 若后来被改过，先检查冲突，不强行覆盖。
 
 ## 排查
 

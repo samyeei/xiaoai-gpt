@@ -37,3 +37,9 @@ Speaker ingress4399 is on the LAN; health4398 and recognition4400/4401 should be
 ## Validation boundary / 验收边界
 
 The source derives from a personally accepted Mac/LX06 setup. Clean install on a second Mac, other client forks/models, full machine restoration and long unattended operation are not independently proven. Keep test evidence and human listening evidence separate. No Codex credentials, model weights, raw device logs or private restoration archives belong in the repository.
+
+## Installer / 安装器
+
+`install.sh` bootstraps the local Python entry point `tools/install.py`. Standard-library modules under `tools/installer` separate the private ownership journal, trusted model resources, SSH device transaction, runtime prerequisites and launchd lifecycle. `mac/runtime-config.mjs` reads generated private settings; `SPEAKERS_CONFIG` keeps actual device addresses outside tracked examples. Codex-only installs derive a private wake configuration with Muse disabled.
+
+The supported baseline is Apple Silicon macOS + an already-unlocked LX06. Source/isolated tests and read-only local doctor checks are not a clean-Mac audible end-to-end acceptance.

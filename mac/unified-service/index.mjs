@@ -19,18 +19,33 @@ import { nativeAudioOptIn } from "../../deploy/bridge/audio-mirror.mjs";
 import {configureVoiceFlags,asrWakeTestEnv,asrWakeEnv as permanentAsrWakeEnv} from "./voice-config.mjs";
 import { nativeWakeOptIn } from "../../deploy/bridge/native-voice-client.mjs";
 import {loadSpeakers} from '../../deploy/bridge/speakers.mjs';
+import {loadRuntime,deriveWakeConfig} from '../runtime-config.mjs';
+import {loadWakeRoutes} from '../../deploy/bridge/wake-routes.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+const runtime=loadRuntime(root);
 const multiSpeaker=loadSpeakers().mode==='multiple';
 const privateDir = resolve(root, "mac/unified-service/private"),
   museDir = resolve(root, "mac/muse-service/private");
 const codex = JSON.parse(
     readFileSync(resolve(root, "mac/codex-service/private/config.json")),
   ),
-  muse = JSON.parse(readFileSync(resolve(museDir, "config.json")));
+  muse = runtime.muse_enabled ? JSON.parse(readFileSync(resolve(museDir, "config.json"))) : null;
 const python = resolve(root, ".codex-runs/mac-voice-env/bin/python"),
-  node = "/Users/YOUR_USER/.local/bin/node";
+  node = runtime.node;
 mkdirSync(privateDir, { recursive: true, mode: 0o700 });
 chmodSync(privateDir, 0o700);
+let wakeEnv={};
+if(!runtime.muse_enabled){
+  const source=process.env.WAKE_WORDS_CONFIG??resolve(root,'config/wake-words.json');
+  loadWakeRoutes(source);
+  const derived=deriveWakeConfig(JSON.parse(readFileSync(source,'utf8')),false);
+  const wakePath=resolve(privateDir,'wake-words.json');
+  const temporary=resolve(privateDir,'.wake-words-'+randomUUID());
+  writeFileSync(temporary,JSON.stringify(derived),{mode:0o600,flag:'wx'});
+  renameSync(temporary,wakePath);
+  loadWakeRoutes(wakePath);
+  wakeEnv={WAKE_WORDS_CONFIG:wakePath};
+}
 const bridge = JSON.parse(
   readFileSync(resolve(root, "deploy/config/bridge.json")),
 );
@@ -54,7 +69,9 @@ try {
   const updated=configureVoiceFlags(bridge,{realtimeFlag:JSON.parse(readFileSync(resolve(privateDir,"realtime-voice.json"),"utf8"))},codex.admin_key);
   if(updated.realtime_voice){delete bridge.native_voice;delete bridge.native_audio_url;delete bridge.native_audio_expires_at;bridge.realtime_voice=updated.realtime_voice;}
 }catch{}
-bridge.muse = { url: muse.url, key: muse.key };
+if(muse)bridge.muse = { url: muse.url, key: muse.key };
+else delete bridge.muse;
+bridge.muse_enabled=runtime.muse_enabled;
 bridge.codex = {
   ...bridge.codex,
   url: "http://127.0.0.1:" + codex.port,
@@ -69,28 +86,30 @@ try{asrWakeEnv=asrWakeTestEnv(JSON.parse(readFileSync(resolve(privateDir,'asr-wa
 try{asrWakeEnv={...asrWakeEnv,...permanentAsrWakeEnv(JSON.parse(readFileSync(resolve(privateDir,'asr-wake.json'),'utf8')))};}catch{}
 const group = new ChildGroup({
   ...(multiSpeaker?{voice_secondary:spec(python,[resolve(root,'deploy/voice/worker.py')],{
-    VOICE_HOST:'127.0.0.1',VOICE_PORT:'4401',MODELS_DIR:resolve(root,'deploy/models'),VAD_RMS:'20',...asrWakeEnv
+    VOICE_HOST:'127.0.0.1',VOICE_PORT:'4401',MODELS_DIR:resolve(root,'deploy/models'),VAD_RMS:'20',...asrWakeEnv,...wakeEnv
   })}:{}),
   voice: spec(python, [resolve(root, "deploy/voice/worker.py")], {
     VOICE_HOST: "127.0.0.1",
     MODELS_DIR: resolve(root, "deploy/models"),
     VAD_RMS: "20",
     ...asrWakeEnv,
+    ...wakeEnv,
   }),
-  muse: spec(python, [
+  ...(muse?{muse:spec(python, [
     resolve(root, "mac/muse-service/index.py"),
     "run",
     "--state-dir",
     museDir,
-  ]),
+  ])}:{}),
   codex: spec(node, [resolve(root, "mac/codex-service/index.mjs")], {
     XIAOAI_UNIFIED: "1",
   }),
   bridge: spec(node, [resolve(root, multiSpeaker?"deploy/bridge/multi-index.mjs":"deploy/bridge/index.mjs")], {
     HEY_MUSE: "1",
-    BRIDGE_HOST: process.env.BRIDGE_HOST ?? "192.168.100.106",
+    BRIDGE_HOST: runtime.bridge_host ?? process.env.BRIDGE_HOST ?? "192.168.100.106",
     BRIDGE_HEALTH_HOST: "127.0.0.1",
     BRIDGE_CONFIG: bridgePath,
+    ...wakeEnv,
   }),
 });
 let pairing = null,
@@ -118,7 +137,7 @@ async function health() {
     }
   };
   const [m, c, b] = await Promise.all([
-    probe(muse.url, muse.key),
+    muse?probe(muse.url, muse.key):Promise.resolve({ready:false,state:'unavailable'}),
     probe("http://127.0.0.1:" + codex.port, codex.key),
     probe("http://127.0.0.1:4398", ""),
   ]);
@@ -129,7 +148,7 @@ async function health() {
     voice: b,
     pairing: pairState,
     sdk_token_ready:
-      existsSync(resolve(museDir, "sdk_token")) &&
+      !!muse && existsSync(resolve(museDir, "sdk_token")) &&
       readFileSync(resolve(museDir, "sdk_token"), "utf8").trim().length > 0,
   };
 }
@@ -164,6 +183,8 @@ const server = createServer(async (req, res) => {
     }
     if (size) data = JSON.parse(Buffer.concat(chunks));
     if (req.method !== "POST") return send(404, { error: "Not found" });
+    if (!muse && (req.url==="/token"||req.url?.startsWith('/pair/')||req.url?.startsWith('/muse/')))
+      return send(503,{error:'Muse unavailable'});
     if (req.url === "/token") {
       if (pairing || existsSync(resolve(museDir, "pairing.json")))
         return send(409, { error: "Pairing state already active" });

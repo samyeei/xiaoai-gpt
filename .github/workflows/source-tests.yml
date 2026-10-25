@@ -15,4 +15,13 @@ jobs:
           mkdir -p deploy/bridge/node_modules
           ln -s ../vendor/ws deploy/bridge/node_modules/ws
       - name: Node regressions
-        run: node --test deploy/bridge/*.test.mjs mac/codex-service/*.test.mjs mac/unified-service/*.test.mjs mac/realtime-voice/*.test.mjs
+        run: node --test mac/*.test.mjs deploy/bridge/*.test.mjs mac/codex-service/*.test.mjs mac/unified-service/*.test.mjs mac/realtime-voice/*.test.mjs
+  installer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Isolated installer regressions (no device or login)
+        run: python -m unittest discover -s tools/installer -t . -p 'test_*.py'

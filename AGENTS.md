@@ -1,15 +1,12 @@
 # Agent installation contract
 
-Read README.md (Chinese) or README.en.md, then docs/INSTALL.zh-CN.md or docs/INSTALL.en.md before executing tools.
+Read README.md or README.en.md and the matching docs/INSTALL guide first. Inspect the Mac, existing services, ports, speaker route and rollback materials **before** running `./install.sh`; never execute it blindly. The supported installer route is one already-unlocked LX06 on an Apple Silicon Mac. Run `./install.sh doctor` first; it inspects without installing. Use `./install.sh install` only after the prerequisites and target are understood. Do not run every historical `tools/` script.
 
-- This is a sanitized source release, not a universal installer. Inspect templates and adapt them to the user's Mac. Do not claim a script completed installation unless real-device acceptance succeeds.
-- Default to one LX06 (`mode: single`). Preserve existing services, device configuration, server destinations, SSH identities and rollback. Do not switch a NAS/device route without the user's installation authorization and a recoverable backup.
-- Firmware unlocking/flashing is delegated to upstream OpenXiaoAI and the linked video; do not flash automatically.
-- Obtain credentials through trusted local interactive prompts. Let the user perform Codex login and OS permissions. Never request passwords in chat or copy another user's authentication.
-- Generate private configuration locally (0700 directories,0600 files). Keep control endpoints on loopback. Never expose admin_key, tokens, SSH keys/fingerprints, actual addresses, usernames, conversations or raw screenshots in commits/log excerpts/issues.
-- Inspect each YOUR_USER/LOCAL_USER/example-IP occurrence; do not replace test fixtures indiscriminately. Do not run every historical tools script.
-- Keep Python voice/media environments separate. Preserve pinned aiortc/av versions unless a deliberate tested migration is requested. Save the model hash manifest before downloading and compare the archives with the original hashes.
-- Use only a fixed-command, forwarding-disabled playback SSH key. Preserve other authorized_keys entries and verify forced-command behavior.
-- End calls before reloading. Do not enable the old standalone text service beside unified. Do not kill unrelated Node/Python processes.
-- Report source tests, network connection, audible playback and real conversational acceptance separately. A health endpoint is not proof that the user heard an answer.
-- At handoff record actual installed job labels, start/stop/reload/rollback commands, supported models/client versions, and unresolved limitations without secrets.
+- Firmware unlocking and flashing belong to upstream OpenXiaoAI and its video guide. Never flash automatically. Do not assume another speaker or fork client is compatible.
+- Preserve existing services, device settings, server destinations, SSH identities and backups. Do not take over a NAS or a second device. Stop on ownership or route conflicts and retain a recoverable rollback.
+- Ask for missing addresses in trusted local interactive prompts. Noninteractive installation requires addresses supplied as flags or a private settings file, and established trusted SSH authentication. Never ask for passwords in chat, copy another user's authentication, or bypass Codex login and macOS permission prompts; the user completes those.
+- Keep private settings under restricted permissions (0700 directories, 0600 files), controls on loopback, and logs/results redacted. Never publish real IPs, usernames, device IDs, admin keys, tokens, SSH keys/fingerprints, conversations, raw screenshots or full logs.
+- Preserve public wake, command and model customizations. Use pinned model archive and required-file hashes without rewriting their trust manifests. Keep the two Python environments separate; do not silently upgrade version-sensitive aiortc/av or change shared Node signing.
+- Use only the project's fixed-command SSH playback key, with forwarding and PTY disabled. Preserve all other authorized_keys entries and verify the forced command. Do not kill unrelated Node/Python processes or enable the old standalone text service beside unified.
+- `status` and `verify` report automated state only. `conversation_verified` remains false until the user actually hears and checks single questions, continuous follow-ups, exit, and playback interruption. Do not claim a script or healthy endpoint proves audible success or a clean-Mac installation; report tests, connectivity, playback, and real conversation acceptance separately.
+- End calls before `stop` or `uninstall`; these commands refuse an active conversation. Uninstall restores only unchanged, project-owned resources and retains private state, dependencies and backups. At handoff record actual job labels, start/stop/recovery commands, supported model/client versions and unresolved limits without secrets.

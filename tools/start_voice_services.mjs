@@ -6,9 +6,11 @@ import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createInterface} from 'node:readline/promises';
 import {loadVoiceCommands} from '../deploy/bridge/voice-commands.mjs';
+import {loadRuntime} from '../mac/runtime-config.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const runtime=loadRuntime(root);
 const domain='gui/'+process.getuid();
-const jobs=[['com.LOCAL_USER.xiaoai-native-voice','音频转接'],['com.LOCAL_USER.xiaoai-realtime-voice','连续语音'],['com.LOCAL_USER.xiaoai-unified','唤醒和问答']];
+const jobs=[[runtime.labels.native,'音频转接'],[runtime.labels.realtime,'连续语音'],[runtime.labels.unified,'唤醒和问答']];
 function run(args){return spawnSync('/bin/launchctl',args,{stdio:'ignore',timeout:10000}).status===0;}
 async function status(port,path,key=''){
  const response=await fetch(`http://127.0.0.1:${port}${path}`,{headers:key?{Authorization:'Bearer '+key}:{},signal:AbortSignal.timeout(2000)});
@@ -38,7 +40,7 @@ async function main(){
     if(manager.codex.model)console.log(`默认问答：${manager.codex.model}，推理强度 ${manager.codex.reasoning_effort??'默认'}。`);
     if(realtime.settings?.voice)console.log(`连续人声：${realtime.settings.voice}，播放增益 ${realtime.settings.output_gain} 倍。`);
     if(realtime.active||native.active)console.log('当前语音通话保持运行。');
-    if(bridge.speakers)for(const speaker of bridge.speakers)console.log(`音箱 ${speaker.ip}：${speaker.speaker_connected?'已连接':'未连接'}。`);
+    if(bridge.speakers)for(const speaker of bridge.speakers)console.log(`音箱 ${speaker.device_id??'设备'}：${speaker.speaker_connected?'已连接':'未连接'}。`);
     if(bridge.speakers?bridge.speakers.some(s=>s.speaker_connected):bridge.voice.speaker_connected){
      const wakeConfig=JSON.parse(readFileSync(resolve(root,'config/wake-words.json'),'utf8'));
      const wake=wakeConfig.routes.find(r=>r.enabled&&r.backend==='codex')?.phrases[0];

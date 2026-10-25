@@ -27,6 +27,11 @@ class DrainTests(unittest.IsolatedAsyncioTestCase):
   await player.drain();p.stdin.close.assert_called_once();p.wait.assert_awaited_once();self.assertIsNone(player.process)
  def test_managed_uses_same_rsa_key_as_provisioner(self):
   self.assertIn('/project/mac/realtime-voice/private/device_rsa',PlayerConfig('/project','managed').command())
+ def test_managed_player_ignores_ambient_ssh_config_and_mux(self):
+  command=PlayerConfig('/project','managed').command()
+  self.assertEqual(command[command.index('-F')+1],'/dev/null')
+  self.assertIn('ControlPath=none',command)
+  self.assertIn('IdentitiesOnly=yes',command)
 class PlaybackDiagnosticsTests(unittest.IsolatedAsyncioTestCase):
  async def test_actual_child_stderr_is_consumed_without_blocking_pcm_and_without_raw_storage(self):
   import sys

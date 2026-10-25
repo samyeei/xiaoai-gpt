@@ -11,7 +11,11 @@ import {DirectVoice} from './direct-voice.mjs';
 import {nativeWake} from './speaker-transport.mjs';
 import {dispatchNativeText} from './native-commands.mjs';
 import {calibrationControl} from './calibration-control.mjs';
+import {resolve,dirname} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {loadRuntime,unavailableMuseClient} from '../../mac/runtime-config.mjs';
 
+const runtime=loadRuntime(resolve(dirname(fileURLToPath(import.meta.url)),'../..'));
 const registry=loadSpeakers(),config=JSON.parse(readFileSync(process.env.BRIDGE_CONFIG,'utf8'));
 if(registry.mode!=='multiple'||config.native_voice)throw Error('Invalid multi-speaker mode');
 const lease=new ConversationLease(),pipelines=new Map();
@@ -23,9 +27,9 @@ if(config.realtime_voice){
  const s=await r.json();if(typeof s.active!=='boolean')throw Error('Invalid recovery state');
  if(s.active){if(!registry.devices.some(d=>d.id===s.device_id))throw Error('Unknown active device');recovery=s.device_id;recoveryToken=lease.acquire(recovery);}
 }
-const hub=new SpeakerHub({devices:registry.devices,host:process.env.BRIDGE_HOST??'0.0.0.0'});
+const hub=new SpeakerHub({devices:registry.devices,host:runtime.bridge_host??process.env.BRIDGE_HOST??'0.0.0.0'});
 for(const device of registry.devices){
- const native=hub.devices.get(device.id),muse=new LocalMuseClient(config.muse),codex=new CodexClient(config.codex);
+ const native=hub.devices.get(device.id),muse=runtime.muse_enabled?new LocalMuseClient(config.muse):unavailableMuseClient(),codex=new CodexClient(config.codex);
  const controller=new Controller(muse,new Speaker(native),config,codex);
  const voice=new DirectVoice(native,controller,controller.speaker,{
   ...config,device_id:device.id,conversation_lease:lease,conversation_token:device.id===recovery?recoveryToken:null,

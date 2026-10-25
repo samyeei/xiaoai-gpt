@@ -4,7 +4,7 @@
 
 让小爱音箱 Pro（LX06）通过 Mac 使用 Codex：支持单次问答、连续语音、可配置唤醒词和退出口令。
 
-这是从实际使用的 Mac 方案整理的首个公开源码版本，默认单音箱。**需要 Agent 协助完成本机适配，不是下载即用的安装器。新 Mac 从零安装尚未独立验收。**
+这是从实际使用的 Mac 方案整理的公开源码和受控安装器，默认单音箱。安装器目前面向 Apple Silicon Mac 和已解锁的 LX06；**新 Mac 从零安装尚未独立完成端到端实机验收。**
 
 ## 实际效果
 
@@ -23,9 +23,9 @@
 
 把下面一句发给你的 Codex 或其他具备本机操作能力的 Agent：
 
-> 请把 https://github.com/samyeei/xiaoai-gpt 安装到我的 Mac：先阅读 AGENTS.md 和 docs/INSTALL.zh-CN.md，按单音箱模式检查和适配本机路径、依赖、私密配置及音箱协议，保留现有配置和回滚；登录和系统授权由我完成，不刷机、不公开密钥，逐项验收单次问答、连续问答和退出，遇到阻塞如实报告。
+> 请把 https://github.com/samyeei/xiaoai-gpt 安装到我的 Mac：先阅读 AGENTS.md 和安装教程，检查这台 Mac 与已解锁 LX06 的条件，再使用 `./install.sh doctor` 和安装器；保留现有配置与回滚，让我完成 Codex 登录和系统授权，最后逐项做实机语音验收，如实报告未完成项。
 
-Agent 不是免配置安装器：你仍需准备已解锁音箱、完成自己的 Codex 登录、核对设备 SSH 指纹，并按提示授权。不要把密码发给 Agent 聊天记录。
+安装器会在本机询问缺少的音箱与 Mac 地址；你仍需准备已解锁音箱、完成自己的 Codex 登录、核对设备 SSH 指纹，并按提示授权。不要把密码发给 Agent 聊天记录。也可以自行在仓库根目录先运行 `./install.sh doctor`；检查不会安装任何东西。
 
 - [中文安装教程](docs/INSTALL.zh-CN.md) / [English installation](docs/INSTALL.en.md)
 - [中文使用与改唤醒词](docs/USAGE.zh-CN.md) / [English usage and wake words](docs/USAGE.en.md)

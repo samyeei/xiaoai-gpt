@@ -4,13 +4,29 @@ import {once} from 'node:events';
 import {WebSocket} from 'ws';
 import {SpeakerHub} from './speaker-hub.mjs';
 import {ConversationLease} from './conversation-lease.mjs';
-import {validateSpeakers} from './speakers.mjs';
+import {validateSpeakers,loadSpeakers} from './speakers.mjs';
+import {mkdtempSync,writeFileSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 
 const devices=[{id:'lx06-primary',ip:'127.0.0.1'},{id:'lx06-secondary',ip:'127.0.0.2'}];
 test('registry validates fixed identities and single rollback',()=>{
  assert.equal(validateSpeakers({version:1,mode:'single',devices}).devices.length,1);
  assert.equal(validateSpeakers({version:1,mode:'multiple',devices}).devices.length,2);
  for(const c of [{version:1,mode:'multiple',devices:[devices[0],devices[0]]},{version:1,mode:'multiple',devices:[{id:'bad',ip:'host;bad'}]}])assert.throws(()=>validateSpeakers(c));
+});
+test('speaker registry loads private override and keeps default when unset',()=>{
+ const saved=process.env.SPEAKERS_CONFIG,dir=mkdtempSync(join(tmpdir(),'xiaoai-speakers-'));
+ try{
+  delete process.env.SPEAKERS_CONFIG;
+  const original=loadSpeakers();
+  const path=join(dir,'speakers.json');
+  writeFileSync(path,JSON.stringify({version:1,mode:'single',devices:[{id:'lx06-primary',ip:'192.168.1.88'},{id:'lx06-secondary',ip:'192.168.1.89'}]}));
+  process.env.SPEAKERS_CONFIG=path;
+  assert.equal(loadSpeakers().devices[0].ip,'192.168.1.88');
+  delete process.env.SPEAKERS_CONFIG;
+  assert.deepEqual(loadSpeakers(),original);
+ }finally{if(saved===undefined)delete process.env.SPEAKERS_CONFIG;else process.env.SPEAKERS_CONFIG=saved;rmSync(dir,{recursive:true,force:true});}
 });
 test('lease permits one conversation and ignores stale releases',()=>{
  const l=new ConversationLease(),a=l.acquire('a');assert.ok(a);assert.equal(l.acquire('b'),null);

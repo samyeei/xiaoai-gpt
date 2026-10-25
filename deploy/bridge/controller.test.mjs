@@ -14,6 +14,16 @@ test('ordinary XiaoAI commands do not intercept or call Muse', async () => {
   await c.onText('明天早上七点叫我'); await c.onText('播放音乐');
   assert.deepEqual(calls, []); assert.equal(c.status().mode, 'xiaoai');
 });
+test('Codex-only controller leaves Muse prompts with native XiaoAI',async()=>{
+  const {speaker,muse,calls}=fixture();
+  muse.ask=()=>assert.fail('Muse request must not start');
+  const c=new Controller(muse,speaker,{muse_enabled:false});
+  await c.onText('和缪斯聊天');
+  await c.onText('问缪斯：你好');
+  await c.onDirectText('你好','muse');
+  assert.deepEqual(calls,[]);
+  assert.equal(c.status().mode,'xiaoai');
+});
 test('enter, converse, exit, and deduplicate recognition', async () => {
   const { c, calls } = fixture();
   await c.onText('和缪斯聊天'); assert.equal(c.status().mode, 'muse');

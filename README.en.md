@@ -4,7 +4,7 @@
 
 Use a XiaoAI Pro (LX06) speaker with Codex through a Mac: single questions, continuous voice, configurable wake words, and configurable exit commands.
 
-This is the first public source release of a working personal Mac setup. It defaults to one speaker. **Installation requires an agent to adapt the setup to your Mac; this is not a turnkey installer. A clean installation on another Mac has not been independently validated.**
+This public release includes a controlled installer for one speaker on an Apple Silicon Mac with an already-unlocked LX06. **A clean Mac installation has not yet passed independent, end-to-end real-device acceptance.**
 
 ## Demo and speaker preparation
 
@@ -14,9 +14,9 @@ For unlocking/flashing, SSH access, and the speaker client, use the [original Op
 
 ## One sentence for your agent
 
-> Install https://github.com/samyeei/xiaoai-gpt on my Mac: first read AGENTS.md and docs/INSTALL.en.md, inspect and adapt local paths, dependencies, private configuration and the speaker protocol in single-speaker mode, preserve existing settings and rollback, let me handle login and OS permissions, do not flash firmware or expose credentials, verify single questions, continuous conversation and exit individually, and report blockers honestly.
+> Install https://github.com/samyeei/xiaoai-gpt on my Mac: first read AGENTS.md and the installation guide, inspect this Mac and my already-unlocked LX06, then use `./install.sh doctor` and the installer; preserve existing settings and rollback, let me handle Codex login and OS permissions, and report each real-device voice acceptance result honestly.
 
-You still need an unlocked speaker, your own Codex login, verified SSH host keys, and any required local permissions. Enter passwords only in trusted local login prompts, not in chat.
+The installer prompts locally for missing speaker and Mac addresses. You still need an unlocked speaker, your own Codex login, verified SSH host keys, and any required local permissions. Enter passwords only in trusted local prompts, never in chat. You can run `./install.sh doctor` from the repository root first; it does not install anything.
 
 - [Installation](docs/INSTALL.en.md) / [中文安装](docs/INSTALL.zh-CN.md)
 - [Usage and wake words](docs/USAGE.en.md) / [中文使用教程](docs/USAGE.zh-CN.md)

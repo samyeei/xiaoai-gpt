@@ -34,6 +34,7 @@ const normalize = text => text.trim().replace(/[，。！？、,.!?\s]+/g, '');
 export class Controller {
   constructor(muse, speaker, config = {}, codex = null) {
     this.muse = muse; this.speaker = speaker; this.codex = codex;
+    this.museEnabled=config.muse_enabled!==false;
     this.codexAcceptedDelay = config.codex_accepted_delay_ms ?? 8000;
     this.modeTimeout = config.mode_timeout_ms ?? 60000;
     this.mode = false; this.until = 0; this.current = null;
@@ -49,6 +50,7 @@ export class Controller {
   cancel() { this.sequence++; this.current?.abort.abort(); this.current = null; }
   async onDirectText(text, backend = 'muse') {
     if (!['muse', 'codex'].includes(backend)) return;
+    if(backend==='muse'&&!this.museEnabled)return;
     this.cancel(); this.mode = false; const sequence = this.sequence;
     const abort = new AbortController(), id = randomUUID();
     this.current = { abort, id, backend }; this.lastError = null;
@@ -91,6 +93,7 @@ export class Controller {
     this.operations = task; await task;
   }
   async onText(text) {
+    if(!this.museEnabled)return;
     if (typeof text !== 'string' || !text.trim()) return;
     const now = Date.now(), cleaned = normalize(text);
     if (text === this.lastText && now - this.lastTime < 1800) return;

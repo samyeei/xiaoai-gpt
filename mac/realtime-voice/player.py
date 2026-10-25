@@ -10,7 +10,7 @@ class PlayerConfig:
  def command(self):
   a=['ssh','-T','-o','BatchMode=yes','-o','ConnectTimeout=3','-o','ConnectionAttempts=1','-o','StrictHostKeyChecking=yes','-o','UserKnownHostsFile='+str(self.root/'.codex-runs/lx06-known-hosts'),'-o','GlobalKnownHostsFile=/dev/null','-o','HostKeyAlgorithms=+ssh-rsa']
   if self.mode=='diagnostic':a+=['-S',str(self.root/('.codex-runs/lx06-diagnostic/control' if self.device_id=='lx06-primary' else '.codex-runs/lx06-secondary-diagnostic/control')),'-o','ControlMaster=no','-o','ProxyCommand=/usr/bin/false']
-  else:a+=['-o','IdentitiesOnly=yes','-o','ControlMaster=no','-o','ControlPath=none','-o','PubkeyAcceptedAlgorithms=+ssh-rsa','-i',str(self.root/'mac/realtime-voice/private/device_rsa')]
+  else:a+=['-F','/dev/null','-o','IdentitiesOnly=yes','-o','ControlMaster=no','-o','ControlPath=none','-o','PubkeyAcceptedAlgorithms=+ssh-rsa','-i',str(self.root/'mac/realtime-voice/private/device_rsa')]
   return a+['root@'+self.target,'aplay -q -D notify -t raw -f S16_LE -c 2 -r 48000']
  async def preflight(self):
   cmd=self.command();p=await asyncio.create_subprocess_exec(*cmd,stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.DEVNULL,stderr=asyncio.subprocess.PIPE)

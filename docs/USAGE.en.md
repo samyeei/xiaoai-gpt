@@ -2,7 +2,7 @@
 
 [中文](USAGE.zh-CN.md) · [Home](../README.en.md)
 
-Complete [installation and real-device acceptance](INSTALL.en.md) first. Keep the Mac logged in, awake and online, and keep the speaker client connected to the Mac bridge. A desktop start shortcut recovers stopped jobs; it does not reload configuration.
+Complete [installation and real-device acceptance](INSTALL.en.md) first. Keep the Mac logged in, awake and online, and keep the speaker client connected to the Mac bridge. A desktop start shortcut recovers stopped jobs; it does not reload configuration. Use `./install.sh status` for redacted installed state.
 
 ## Conversations
 
@@ -69,9 +69,9 @@ Edit `config/assistant.json`:
 
 ## Restart, stop and rollback
 
-End conversations first. Restart unified + realtime after command or model/voice changes. Restart unified (including its recognition children) after direct-wake changes. Ask the installing agent to record the actual LaunchAgent labels. `com.LOCAL_USER.*` is a template, not your actual label. Use your own `id -u` rather than someone else's numeric ID.
+End conversations first, then run `./install.sh stop` and `./install.sh start` from the checkout to load changed commands, wake words, model or voice settings. `stop` refuses an active conversation. Run `./install.sh verify` for automated health and repeat the affected real speech checks; `verify` cannot prove that you heard a correct answer. The installer records and uses this Mac's actual LaunchAgent labels. `com.LOCAL_USER.*` in older source is only a template.
 
-Only stop/remove the jobs actually installed by this project. Do not kill every Node/Python process or delete all SSH keys. To roll back, stop the connection, restore the backed-up speaker-client server address, and remove only the restricted player public-key entry added by this project. Keep existing keys and known_hosts.
+Use `./install.sh uninstall` to remove the project-owned installation; it also refuses an active conversation. It restores only unchanged resources it owns and retains private state, dependencies and backups. Do not kill every Node/Python process or delete all SSH keys. If someone changed the speaker route or authorized_keys afterward, inspect the conflict instead of forcing an overwrite.
 
 ## Troubleshooting
 

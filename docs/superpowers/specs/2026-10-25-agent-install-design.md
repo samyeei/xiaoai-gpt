@@ -1,6 +1,6 @@
 # Agent-assisted one-command installation design
 
-Status: proposed for user review. Scope: Mac + one already-unlocked LX06, retaining the working voice behavior. No firmware flashing, NAS deployment or Windows support in this milestone.
+Status: approved by the user on 2026-10-25; implemented with isolated regression tests. Clean-Mac physical acceptance remains pending. Scope: Mac + one already-unlocked LX06, retaining the working voice behavior. No firmware flashing, NAS deployment or Windows support in this milestone.
 
 ## User outcome
 

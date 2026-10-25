@@ -9,4 +9,4 @@ export function validateSpeakers(c){
  }
  return {...c,devices:c.devices.filter(d=>c.mode==='multiple'||d.id==='lx06-primary')};
 }
-export function loadSpeakers(){return validateSpeakers(JSON.parse(readFileSync(new URL('../../config/speakers.json',import.meta.url),'utf8')));}
+export function loadSpeakers(){return validateSpeakers(JSON.parse(readFileSync(process.env.SPEAKERS_CONFIG??new URL('../../config/speakers.json',import.meta.url),'utf8')));}

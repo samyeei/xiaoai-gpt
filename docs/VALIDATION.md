@@ -1,11 +1,18 @@
-# Publication validation / 发布验收边界
+# Validation / 验证边界
 
-Public source preparation, 2026-10-25:
+## Agent installer, 2026-10-25
 
-- Node regressions: 170 passed.
-- Python media regressions: 59 passed.
-- Python voice/recognition regressions: 39 passed; the existing local KWS vocabulary was temporarily supplied for the vocabulary test, then removed from publication.
-- Private-value scan and local Markdown link check passed before publication. No raw screenshots, private backups, credentials, model weights or conversation histories are included.
-- Tests used the already installed local runtimes; they do not establish that dependency installation works on every new Mac. GitHub CI covers Node source regressions only, not device audio, account authentication or Mac permissions.
+- Installer regressions: 48 passed (isolated homes, local fixtures and fake external-command/device boundaries).
+- Node regressions: 178 passed.
+- Python media regressions: 61 passed.
+- Python voice/recognition regressions: 39 passed; the installed KWS vocabulary was temporarily supplied for the vocabulary test and removed afterward.
+- Actual local read-only doctor: Apple Silicon/Python3.12/Codex experimental realtime schema supported; occupied service ports detected. No installer takeover, speaker switch, SSH provisioning, dependency download or launchd modification was performed against the existing working setup.
+- Final code review covered ownership, resume, failure recovery, restricted playback, model integrity, runtime portability and bilingual instructions. No material blockers remained at handoff.
 
-此前真人可用的 Mac/LX06 方案接受偶有轻微卡顿。本次发布只整理脱敏源码、教程和许可，未改动现有音箱服务。新 Mac 全新安装、完整恢复及其他音箱型号仍需单独验收；不能把单元测试当成音箱实际出声证明。
+CI runs Node and standard-library installer regressions, not real audio, accounts, macOS permissions or device SSH. See the workflow run associated with the exact published commit for its current result.
+
+## What is still unverified / 尚未验证
+
+A clean Mac installation, real dependency downloads on another machine, system permission prompts, real SSH key provisioning and full audible end-to-end acceptance of the new installer still need a supported Mac and unlocked LX06. Tests do not prove those external outcomes. The pre-existing personal Mac/LX06 voice route was usable with occasional light stutter; it is not full duplex or guaranteed zero-lag.
+
+自动化安装成功要求服务就绪、音箱连接和PCM上行；`conversation_verified`仍为false，不能替代真人听到正确答案、追问及退出的验收。真实地址、登录、密钥、私密备份、原始截图和对话历史不属于公开仓库。

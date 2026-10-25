@@ -1,10 +1,11 @@
 """Only configured device identities may select a fixed SSH destination."""
-import json,ipaddress
+import json,ipaddress,os
 from pathlib import Path
 
 def device_ip(root,device_id):
- p=Path(root)/'config/speakers.json'
+ p=Path(os.environ['SPEAKERS_CONFIG']) if 'SPEAKERS_CONFIG' in os.environ else Path(root)/'config/speakers.json'
  if not p.exists():
+  if 'SPEAKERS_CONFIG' in os.environ:raise ValueError('invalid_registry')
   if device_id=='lx06-primary':return '192.168.100.186'
   raise ValueError('unknown_device')
  c=json.loads(p.read_text())
