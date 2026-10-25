@@ -1,0 +1,4 @@
+aiortc==1.15.0
+av==17.1.0
+numpy==2.5.3
+websockets==15.0.1

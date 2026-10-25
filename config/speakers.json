@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "mode": "single",
+  "devices": [
+    {
+      "id": "lx06-primary",
+      "ip": "192.168.100.186"
+    },
+    {
+      "id": "lx06-secondary",
+      "ip": "192.168.100.181"
+    }
+  ]
+}

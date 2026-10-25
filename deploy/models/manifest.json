@@ -1,0 +1,47 @@
+[
+  {
+    "path": "kws/encoder-epoch-13-avg-2-chunk-16-left-64.int8.onnx",
+    "bytes": 4599656,
+    "sha256": "408bbd740838c42d5bf6d1c5b80b3c88b616c7860b92d980328b5b068c76ae48"
+  },
+  {
+    "path": "kws/decoder-epoch-13-avg-2-chunk-16-left-64.onnx",
+    "bytes": 759829,
+    "sha256": "63a22dd60f40fff082ac3e09afa507f6787da36df76ded2fbe145fa233e22c21"
+  },
+  {
+    "path": "kws/joiner-epoch-13-avg-2-chunk-16-left-64.int8.onnx",
+    "bytes": 86629,
+    "sha256": "190d4067b4cc20b72a42a1916e69d92052000fb7051a427ebb1bc72a69207dc1"
+  },
+  {
+    "path": "kws/tokens.txt",
+    "bytes": 1928,
+    "sha256": "2d3f32311f9b692b964da3c90e830258d3e78e013cb0c992dbfb15cd5a1a71b0"
+  },
+  {
+    "path": "kws/en.phone",
+    "bytes": 3330061,
+    "sha256": "f7000ec3a90544c0c7c16090d8951779c2b322e14dad5006290f498567d439ea"
+  },
+  {
+    "path": "asr/model.int8.onnx",
+    "bytes": 239233841,
+    "sha256": "c71f0ce00bec95b07744e116345e33d8cbbe08cef896382cf907bf4b51a2cd51"
+  },
+  {
+    "path": "asr/tokens.txt",
+    "bytes": 315894,
+    "sha256": "f449eb28dc567533d7fa59be34e2abca8784f771850c78a47fb731a31429a1dc"
+  },
+  {
+    "path": "asr/LICENSE",
+    "bytes": 71,
+    "sha256": "221c6df10b0931a5629adad671ea48fb7747e034c414b6d2bfa275bc3dd4ea17"
+  },
+  {
+    "path": "asr/README.md",
+    "bytes": 104,
+    "sha256": "763991a00edaea534ab36bf1b7cf89e61e911666dcfabbba71f91f9f7c593a63"
+  }
+]

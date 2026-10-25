@@ -1,0 +1,4 @@
+cryptography==50.0.2
+websockets==15.0.1
+pyobjc-framework-CoreBluetooth==12.2.2; sys_platform == "darwin"
+pyobjc-framework-Cocoa==12.2.2; sys_platform == "darwin"

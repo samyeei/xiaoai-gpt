@@ -1,0 +1,36 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { once } from 'node:events';
+import { request } from 'node:http';
+import { createEndpoints } from './http.mjs';
+const key='a'.repeat(64),adminKey='b'.repeat(64);
+test('LAN jobs require bearer auth; control is unavailable on LAN and requires separate local auth',async t=>{
+  const submitted=[],resolved=[];
+  const service={status:()=>({ready:true}),submit:x=>{submitted.push(x);return{request_id:x.request_id,status:'queued'};},get:id=>({request_id:id,status:'completed',reply:'答复'}),cancel:id=>({request_id:id,status:'cancelled'}),approvals:()=>[{id:'1'}],resolve:(...x)=>resolved.push(x),jobs:new Map()};
+  const {lan,control}=createEndpoints({service,key,adminKey,host:'127.0.0.1',port:0,controlPort:0});
+  await Promise.all([once(lan,'listening'),once(control,'listening')]);
+  t.after(()=>{lan.closeAllConnections();control.closeAllConnections();lan.close();control.close();});
+  const url=`http://127.0.0.1:${lan.address().port}`,local=`http://127.0.0.1:${control.address().port}`;
+  assert.equal((await fetch(url+'/requests')).status,401);
+  assert.equal((await fetch(url+'/health',{headers:{Authorization:`Bearer ${adminKey}`}})).status,401);
+  assert.equal((await fetch(url+'/control/pending',{headers:{Authorization:`Bearer ${key}`}})).status,404);
+  const response=await fetch(url+'/requests',{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({request_id:'job1',text:'只读问题'})});
+  assert.equal(response.status,202);assert.equal(submitted.length,1);
+  assert.equal((await fetch(local+'/control/pending',{headers:{Authorization:`Bearer ${key}`}})).status,401);
+  assert.equal((await fetch(local+'/control/pending',{headers:{Authorization:`Bearer ${adminKey}`,Origin:'https://evil.example'}})).status,403);
+  const rebound=await new Promise(resolve=>{const req=request(local+'/control/pending',{headers:{Authorization:`Bearer ${adminKey}`,Host:'evil.example'}},r=>{r.resume();resolve(r.statusCode);});req.end();});
+  assert.equal(rebound,403);
+  assert.equal((await fetch(local+'/control/respond',{method:'POST',headers:{Authorization:`Bearer ${adminKey}`,'Content-Type':'application/json'},body:JSON.stringify({id:'1',result:{decision:'decline'}})})).status,200);
+  assert.deepEqual(resolved,[['1',{decision:'decline'}]]);
+  assert.equal((await fetch(url+'/requests',{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body:'x'.repeat(20000)})).status,413);
+});
+test('optional digest conditions query/cancel without modifying control or legacy clients',async t=>{
+ let cancels=0;const digest='c'.repeat(64),service={jobs:new Map([['prior',{digest}]]),get:id=>({request_id:id,status:'running'}),cancel:id=>{cancels++;return{request_id:id,status:'cancelled'};},status:()=>({ready:true})};
+ const {lan,control}=createEndpoints({service,key,adminKey,port:0,controlPort:0});await Promise.all([once(lan,'listening'),once(control,'listening')]);t.after(()=>{lan.closeAllConnections();control.closeAllConnections();lan.close();control.close();});
+ const url=`http://127.0.0.1:${lan.address().port}`,headers={Authorization:`Bearer ${key}`,'X-Request-Digest':'d'.repeat(64)};
+ assert.equal((await fetch(url+'/requests/prior',{headers})).status,409);
+ assert.equal((await fetch(url+'/requests/prior/cancel',{method:'POST',headers})).status,409);assert.equal(cancels,0);
+ headers['X-Request-Digest']=digest;assert.equal((await fetch(url+'/requests/prior',{headers})).status,200);
+ assert.equal((await fetch(url+'/requests/prior/cancel',{method:'POST',headers})).status,200);assert.equal(cancels,1);
+ assert.equal((await fetch(url+'/requests/prior',{headers:{Authorization:`Bearer ${key}`}})).status,200);
+});

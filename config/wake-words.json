@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "routes": [
+    {
+      "label": "HEY_LUKA",
+      "backend": "codex",
+      "enabled": false,
+      "phrases": [
+        "嘿撸卡",
+        "嘿卢卡",
+        "黑撸卡",
+        "黑卢卡",
+        "hey luka",
+        "hey luca",
+        "hey looka"
+      ],
+      "kws_tokens": [
+        "HH",
+        "EY1",
+        "l",
+        "ú",
+        "k",
+        "ǎ"
+      ]
+    },
+    {
+      "label": "HEY_CODEX",
+      "backend": "codex",
+      "enabled": false,
+      "phrases": [
+        "hey codex"
+      ],
+      "kws_tokens": [
+        "HH",
+        "EY1",
+        "K",
+        "OW1",
+        "D",
+        "EH0",
+        "K",
+        "S"
+      ]
+    },
+    {
+      "label": "HEY_GPT",
+      "backend": "codex",
+      "enabled": true,
+      "phrases": [
+        "你好机劈替",
+        "你好机批替",
+        "你好鸡劈替",
+        "你好鸡批替",
+        "你好GPT"
+      ],
+      "kws_tokens": [
+        "n",
+        "í",
+        "h",
+        "ǎo",
+        "j",
+        "ī",
+        "p",
+        "ī",
+        "t",
+        "ì"
+      ]
+    },
+    {
+      "label": "HEY_MUSE",
+      "backend": "muse",
+      "enabled": true,
+      "phrases": [
+        "hey muse"
+      ],
+      "kws_tokens": [
+        "HH",
+        "EY1",
+        "M",
+        "Y",
+        "UW1",
+        "Z"
+      ]
+    }
+  ]
+}

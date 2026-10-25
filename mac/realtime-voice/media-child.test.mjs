@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {MediaChild} from './media-child.mjs';
+test('missing executable emits failure and cleanup resolves without orphan',async()=>{const m=new MediaChild({}, {root:'/does-not-exist',executable:'/does-not-exist/python'});const errors=[];m.on('event',e=>errors.push(e));await m.start();await new Promise(r=>setTimeout(r,20));await m.close();assert.equal(errors.some(e=>e.code==='media_failed'),true);});

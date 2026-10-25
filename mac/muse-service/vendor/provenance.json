@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/facebookincubator/muse-gadget-sdk",
+  "revision": "b139b45064b4dcecf7bfe97e75bc7f99c10c28b6",
+  "license": "Apache-2.0",
+  "files_sha256": {
+    "LICENSE": "0353a8ae950232a70f0379a4b8a10b661b2f3e3a598e9411332fc0d4f98947fa",
+    "musegadget/__init__.py": "ca05f6c0625ebfb00053734dcaef8cbf00a4c499e962e6e8346c0aa9a2a3d6a9",
+    "musegadget/pairing.py": "529309cb3c72c3f1c7ba6791243019511129d620c7020f19b6b5fb254c6b14f5",
+    "musegadget/ble_framing.py": "b788a4f1f5362a9dae2d2718f976f27d52508924015cb0c46e09be5efc780222",
+    "musegadget/ble_setup.py": "ac67a5650fe750d6cae44af8439e667be5bf5a7543287d0179cf53dc4f14a68a",
+    "musegadget/identity.py": "04ffb844aba378247b257c1927799aba3d0f60a5a50b50c1ea5595933a13f490",
+    "musegadget/config.py": "c494ca567af2dfbed1d75e4e724bcdd6ff265a5e165b7034bb2d5696024791d0",
+    "musegadget/muse_api.py": "6573fafb90b1a3bb18d36fd9634eb8d98b556b6b5caa899520aa3a53025177b9",
+    "musegadget/network.py": "f80d4552992824973f05dd276e8fde987689c88af523afbc5f6d465099893d22",
+    "musegadget/link_client.py": "4cdeb58d93c61ec61bf947d07a834b929157d7b8fca84e08e79f09c65702ca37",
+    "musegadget/noise/__init__.py": "b7d46a042a6cff22cd4a75b114caf3e973073720c1ced9b263123951937246e2",
+    "musegadget/noise/_proto.py": "dc523508f7363b276d4fde0513a8b5e7ac0bc2f56e736a3bacb2000af91cd8a3",
+    "musegadget/noise/envelope.py": "fbc8ff41059e2dc2c53fdc4aa42087b12d0e6202d2cb3f27a08603b5c76228ba",
+    "musegadget/noise/framing.py": "cf4d7e3f8478f917612aaecec80b207a56ba16bc98b4ed39549d56cdc1d3e986",
+    "musegadget/noise/noise_xx.py": "e90e79cf87f8e44b3b6da095e70dbb1c66bd441eeef753cd1c426acecc7d5157",
+    "musegadget/noise/transport.py": "1e105c6d81e855d4a53b95a9d697a204bfc5a90748d32520e0e6f2733973821b"
+  },
+  "modifications": "none; Mac adapter and pairing entry point are separate"
+}

@@ -1,0 +1,6 @@
+{
+  "esp32_url": "http://ESP32_IP:4397",
+  "key": "GENERATED_FROM_ESP32_USB_RPC",
+  "mode_timeout_ms": 60000,
+  "request_timeout_ms": 95000
+}
