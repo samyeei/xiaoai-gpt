@@ -4,9 +4,15 @@
 
 **English** · [中文](README.md)
 
+![xiaoai-gpt](docs/images/xiaoai-gpt-hero.png)
+
+*AI-generated concept illustration, not a product photo or an actual interface screenshot.*
+
 Use a XiaoAI Pro (LX06) speaker with Codex through a Mac: single questions, continuous voice, configurable wake words, and configurable exit commands.
 
 This public release includes a controlled installer for one speaker on an Apple Silicon Mac running macOS 14 or later, with an already-unlocked LX06. **A clean Mac installation has not yet passed independent, end-to-end real-device acceptance.**
+
+![Ask, Talk, Customize](docs/images/xiaoai-gpt-features.png)
 
 ## Demo and speaker preparation
 
