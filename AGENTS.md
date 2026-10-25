@@ -1,6 +1,6 @@
 # Agent installation contract
 
-Read README.md or README.en.md and the matching docs/INSTALL guide first. Inspect the Mac, existing services, ports, speaker route and rollback materials **before** running `./install.sh`; never execute it blindly. The supported installer route is one already-unlocked LX06 on an Apple Silicon Mac. Run `./install.sh doctor` first; it inspects without installing. Use `./install.sh install` only after the prerequisites and target are understood. Do not run every historical `tools/` script.
+Read README.md or README.en.md and the matching docs/INSTALL guide first. Inspect the Mac, existing services, ports, speaker route and rollback materials **before** running `./install.sh`; never execute it blindly. The supported installer route is one already-unlocked LX06 on an Apple Silicon Mac running macOS 14 or later. Run `./install.sh doctor` first; it inspects without installing. Use `./install.sh install` only after the prerequisites and target are understood. Do not run every historical `tools/` script.
 
 - Firmware unlocking and flashing belong to upstream OpenXiaoAI and its video guide. Never flash automatically. Do not assume another speaker or fork client is compatible.
 - Preserve existing services, device settings, server destinations, SSH identities and backups. Do not take over a NAS or a second device. Stop on ownership or route conflicts and retain a recoverable rollback.

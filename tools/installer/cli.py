@@ -8,6 +8,7 @@ from .resources import prepare_models, ResourceError
 from .device import Device
 
 HINTS={
+ 'requires_macos_14_or_later':'The pinned audio runtime requires macOS 14 or later on Apple Silicon. Upgrade macOS before installing; do not silently build or replace media dependencies.',
  'requires_apple_silicon_macos':'Use an Apple Silicon Mac for this installer. Other platforms are not supported yet.',
  'node_22_required_install_node_or_homebrew':'Install Node.js 22+ or Homebrew, then retry.',
  'codex_client_required_install_and_login':'Install the Codex client, sign in locally, then retry.',

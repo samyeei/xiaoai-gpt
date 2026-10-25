@@ -2,7 +2,7 @@
 
 [中文](INSTALL.zh-CN.md) · [Home](../README.en.md) · [Usage](USAGE.en.md)
 
-The installer supports an Apple Silicon Mac with **one already-unlocked LX06 running a compatible client**. For unlocking, flashing, and SSH preparation, follow [OpenXiaoAI](https://github.com/idootop/open-xiaoai) and [the video guide](https://youtu.be/JKyJdnR1uRc?si=XTlR9v1xlLO4Cw_f); this installer never flashes firmware. Intel Macs, other speakers, and other fork clients are outside this installation route. A clean Mac installation has not yet passed independent end-to-end real-device acceptance. Automated health cannot prove that a person heard a correct answer.
+The installer supports an Apple Silicon Mac running macOS 14 or later with **one already-unlocked LX06 running a compatible client**. For unlocking, flashing, and SSH preparation, follow [OpenXiaoAI](https://github.com/idootop/open-xiaoai) and [the video guide](https://youtu.be/JKyJdnR1uRc?si=XTlR9v1xlLO4Cw_f); this installer never flashes firmware. Intel Macs, other speakers, and other fork clients are outside this installation route. A clean Mac installation has not yet passed independent end-to-end real-device acceptance. Automated health cannot prove that a person heard a correct answer.
 
 ## Prepare and inspect
 
@@ -17,6 +17,8 @@ cd xiaoai-gpt
 Inspect an existing checkout before using it; do not overwrite it. An agent should read `AGENTS.md` and this guide, inventory the architecture, existing services and ports, current speaker server destination, and rollback materials before invoking the installer. `doctor` only inspects prerequisites; it does not install dependencies or change the speaker route. The installer uses an existing Python 3.12 or prepares a managed one with uv. It finds Node 22 or installs it through an **existing** Homebrew installation. You provide the Codex client and login. A working text CLI alone does not establish support for the required realtime protocol.
 
 The speaker must already have a compatible client, a writable SSH authorized_keys location and an SSH server enforcing command= restrictions. If firmware makes that location read-only, installation stops rather than modifying firmware; resolve that prerequisite using upstream guidance first.
+
+Python dependencies are installed from binary wheels only; the installer does not silently build native packages. The pinned PyAV 17.1.0 arm64 wheel requires macOS 14 or later, so older systems are rejected early.
 
 ## Install and resume
 

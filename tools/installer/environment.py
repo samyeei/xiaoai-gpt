@@ -5,6 +5,9 @@ from .core import InstallError, private_dir, sha
 PORTS=(4398,4399,4400,4411,4412,4413,4417,4418,4419)
 def validate_platform(system=None,machine=None):
  if (system or platform.system())!='Darwin' or (machine or platform.machine())!='arm64':raise InstallError('requires_apple_silicon_macos')
+ try:macos_major=int(platform.mac_ver()[0].split('.')[0])
+ except ValueError:raise InstallError('macos_version_unavailable') from None
+ if macos_major<14:raise InstallError('requires_macos_14_or_later')
  if sys.version_info[:2]!=(3,12):raise InstallError('requires_python_3_12')
 
 def port_open(port):
@@ -83,7 +86,7 @@ def dependencies(j,run):
   elif name not in j.data.get('environments',[]):raise InstallError('existing_python_environment_requires_migration')
   python=env/'bin/python'
   if not python.exists() and run([sys.executable,'-m','venv',str(env)],timeout=90).returncode:raise InstallError('python_environment_failed')
-  if run([str(python),'-m','pip','install','--disable-pip-version-check','-r',str(root/requirements)],timeout=1200).returncode:raise InstallError('pinned_dependency_install_failed')
+  if run([str(python),'-m','pip','install','--disable-pip-version-check','--only-binary=:all:','-r',str(root/requirements)],timeout=1200).returncode:raise InstallError('pinned_dependency_install_failed')
   if run([str(python),'-m','pip','check'],timeout=30).returncode:raise InstallError('dependency_validation_failed')
  modules=root/'deploy/bridge/node_modules';target=modules/'ws'
  if modules.is_symlink():raise InstallError('foreign_node_modules')

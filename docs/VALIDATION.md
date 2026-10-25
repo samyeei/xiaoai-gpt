@@ -16,3 +16,7 @@ CI runs Node and standard-library installer regressions, not real audio, account
 A clean Mac installation, real dependency downloads on another machine, system permission prompts, real SSH key provisioning and full audible end-to-end acceptance of the new installer still need a supported Mac and unlocked LX06. Tests do not prove those external outcomes. The pre-existing personal Mac/LX06 voice route was usable with occasional light stutter; it is not full duplex or guaranteed zero-lag.
 
 自动化安装成功要求服务就绪、音箱连接和PCM上行；`conversation_verified`仍为false，不能替代真人听到正确答案、追问及退出的验收。真实地址、登录、密钥、私密备份、原始截图和对话历史不属于公开仓库。
+
+## Fresh-user simulation update / 新用户模拟更新
+
+Installer regressions expanded to61 passing tests (12 new workflow/bootstrap scenarios plus a macOS compatibility regression). Two installation-path issues were reproduced and fixed. See [the detailed simulation report](FRESH_INSTALL_SIMULATION.md) for isolation boundaries and remaining physical acceptance gaps. Existing services and protected configuration were unchanged.

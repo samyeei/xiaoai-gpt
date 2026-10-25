@@ -2,7 +2,7 @@
 
 [English](INSTALL.en.md) · [首页](../README.md) · [使用教程](USAGE.zh-CN.md)
 
-本安装器面向 Apple Silicon Mac、**一台已解锁并运行兼容客户端的 LX06**。音箱解锁、刷机和 SSH 准备请参考 [OpenXiaoAI](https://github.com/idootop/open-xiaoai) 与[视频教程](https://youtu.be/JKyJdnR1uRc?si=XTlR9v1xlLO4Cw_f)；安装器不会刷机。Intel Mac、其他音箱及不同 fork 客户端未纳入这条安装路线。新 Mac 从零安装尚未独立完成端到端实机验收，自动检查不能代替听到真实回答。
+本安装器面向运行 macOS 14 及以上版本的 Apple Silicon Mac、**一台已解锁并运行兼容客户端的 LX06**。音箱解锁、刷机和 SSH 准备请参考 [OpenXiaoAI](https://github.com/idootop/open-xiaoai) 与[视频教程](https://youtu.be/JKyJdnR1uRc?si=XTlR9v1xlLO4Cw_f)；安装器不会刷机。Intel Mac、其他音箱及不同 fork 客户端未纳入这条安装路线。新 Mac 从零安装尚未独立完成端到端实机验收，自动检查不能代替听到真实回答。
 
 ## 准备与检查
 
@@ -17,6 +17,8 @@ cd xiaoai-gpt
 已有同名目录时先检查，勿覆盖。Agent 应先读 `AGENTS.md` 和本教程，清点系统架构、已有服务、端口、音箱当前服务器地址及回滚资料，再运行安装器。`doctor` 只检查条件，不安装依赖、不改音箱路由。安装器使用已有 Python 3.12，或通过 uv 准备受管版本；Node 22 优先使用现有版本，必要时通过**已有** Homebrew 安装。Codex 客户端和登录由用户提供；仅有文字 CLI 不保证当前客户端支持所需的实时协议。
 
 安装器需要音箱已具备兼容客户端、可写的 SSH authorized_keys 位置及支持 command= 强制命令的 SSH 服务。若固件把这些位置设为只读，安装器会停止，不会改固件绕过；先按上游教程解决该前置条件。
+
+安装器只安装预编译的 Python 包，不会自动回退为本机编译。固定的 PyAV 17.1.0 arm64 安装包从 macOS 14 起，因此较旧系统会先收到明确提示。
 
 ## 安装与恢复
 

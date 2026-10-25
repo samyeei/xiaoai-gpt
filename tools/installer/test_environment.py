@@ -1,9 +1,13 @@
 import subprocess,tempfile,unittest,json
+from .environment import platform as environment_platform
 from pathlib import Path
 from unittest.mock import patch
 from .environment import validate_platform, check_ports, schema_support, discover, make_runtime, dependencies
 from .core import Journal,InstallError
 class EnvironmentTests(unittest.TestCase):
+ def test_older_macos_blocks_before_any_dependency_work(self):
+  with patch.object(environment_platform,'mac_ver',return_value=('13.6.9',('','',''),'arm64')):
+   with self.assertRaisesRegex(InstallError,'requires_macos_14_or_later'):validate_platform('Darwin','arm64')
  def test_unsupported_platform_is_explicit(self):
   for system,machine in [('Linux','aarch64'),('Darwin','x86_64')]:
    with self.assertRaises(InstallError):validate_platform(system,machine)
